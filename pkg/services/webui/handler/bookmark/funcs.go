@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gocolly/colly"
+	"github.com/labbs/alfred/pkg/logger"
 )
 
 func scraping(s string) (string, string, string) {
@@ -36,7 +37,9 @@ func scraping(s string) (string, string, string) {
 		fff = append(fff, e.Attr("content"))
 	})
 
-	c.Visit(s)
+	if err := c.Visit(s); err != nil {
+		logger.Logger.Error().Err(err).Str("event", "scrapping.visite").Msg(err.Error())
+	}
 
 	for _, f := range fff {
 		if f != "" && favicon == "" {

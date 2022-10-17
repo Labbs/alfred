@@ -25,7 +25,7 @@ func InitLogger(version string) {
 func New() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		timeStart := time.Now()
-		c.Next()
+		err := c.Next()
 		Logger.Info().
 			Int("status", c.Response().StatusCode()).
 			Dur("duration", time.Since(timeStart)).
@@ -34,6 +34,6 @@ func New() fiber.Handler {
 			Str("path", c.Path()).
 			Str("user_agent", c.Get("User-Agent")).
 			Msg("")
-		return nil
+		return err
 	}
 }

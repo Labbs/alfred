@@ -13,6 +13,6 @@ func checkSession() fiber.Handler {
 			}
 		}
 		c.Next()
-		return nil
+		return c.Next()
 	}
 }
