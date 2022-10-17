@@ -1,0 +1,246 @@
+<div class="container-xl">
+  <div class="page-header d-print-none">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">
+          Bookmarks
+        </h2>
+      </div>
+      <div class="col-2">
+        <form action="/bookmark" method="post">
+          <div class="row g-2">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Search for…" value="{{ .Search }}" name="search">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-white btn-icon" aria-label="Button">
+                <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-9 col-md-auto ms-auto d-print-none">
+        <div class="btn-list">
+          <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-bookmark">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+            Create new bookmark
+          </a>
+          <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-bulk-bookmarks">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 12h6"></path><path d="M12 9v6"></path><path d="M6 19a2 2 0 0 1 -2 -2v-4l-1 -1l1 -1v-4a2 2 0 0 1 2 -2"></path><path d="M18 19a2 2 0 0 0 2 -2v-4l1 -1l-1 -1v-4a2 2 0 0 0 -2 -2"></path></svg>
+            Bulk
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-body">
+  <div class="container-xl">
+    <div class="row row-cards">
+      {{ if .Bookmarks }}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row g-3">
+              {{ range .Tags }}
+              <div class="col">
+                <div class="col text-truncate">
+                  <a href="?tag={{ .Name }}" class="text-reset d-block text-truncate">{{ .Name }}</a>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{ range .Bookmarks }}
+                <tr>
+                  <td>
+                    {{ if ne .Icon "" }}
+                    <img src="{{ .Icon }}" alt="">
+                    {{ end }}
+                    {{ .Name }}
+                    <a href="{{ .Url }}" class="ms-1" aria-label="Open website">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></svg>
+                    </a>
+                  </td>
+                  <td>{{ truncateByWord .Description 5 }}</td>
+                  <td>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-edit-{{ .Id }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line></svg>
+                    </a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ .Id }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="4" y1="7" x2="20" y2="7"></line>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg>
+                    </a>
+                  </td>
+                </tr>
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {{ else }}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body text-center text-muted">
+            No bookmarks found yet.
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+<div class="modal modal-blur fade" id="modal-bookmark" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form action="/bookmark/create" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New bookmark</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Name (Optional)</label>
+            <input type="text" class="form-control" name="name" placeholder="Your bookmark name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">URL</label>
+            <input type="text" class="form-control" name="url" placeholder="Your bookmark url" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Tags</label>
+            <input type="text" class="form-control" name="tags" placeholder="Your bookmark tags">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+            Create new bookmark
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal modal-blur fade" id="modal-bulk-bookmarks" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form action="/bookmark/create/bulk" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New bulk bookmarks</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Tags</label>
+            <input type="text" class="form-control" name="tags" placeholder="Common tags">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">URLs</label>
+            <textarea type="text" class="form-control" name="urls" placeholder="Your bookmarks urls" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+            Create new bulk bookmarks
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{{ range .Bookmarks }}
+<div class="modal modal-blur fade" id="modal-delete-{{ .Id }}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-status bg-danger"></div>
+      <div class="modal-body text-center py-4">
+        <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+        <h3>Are you sure?</h3>
+        <div class="text-muted">Do you really want to remove the bookmark? What you've done cannot be undone.</div>
+      </div>
+      <div class="modal-footer">
+        <div class="w-100">
+          <div class="row">
+            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                Cancel
+              </a></div>
+            <div class="col"><a href="/bookmark/delete/{{ .Id }}" class="btn btn-danger w-100">
+                Delete
+              </a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modal-blur fade" id="modal-edit-{{ .Id }}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form action="/bookmark/edit/{{ .Id }}" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit bookmark</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" name="id" value="{{ .Id }}" disabled>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Name (Optional)</label>
+            <input type="text" class="form-control" name="name" placeholder="Your bookmark name" value="{{ .Name }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Url</label>
+            <input type="text" class="form-control" name="url" placeholder="Your bookmark url" required value="{{ .Url }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Icon (url)</label>
+            <input type="text" class="form-control" name="icon" placeholder="Your icon bookmark url" value="{{ .Icon }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Tags</label>
+            <input type="text" class="form-control" name="tags_list" placeholder="Your bookmark tags" value="{{ joinTags .Tags }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+            Edit bookmark
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{{ end }}

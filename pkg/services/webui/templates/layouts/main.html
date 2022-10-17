@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Alfred</title>
+    <script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+  </head>
+  <body class="theme-light">
+    <div class="page">
+      <header class="navbar navbar-expand-md {{ if eq .Page "index" }}navbar-transparent{{ else }}navbar-light{{ end }} d-print-none">
+        <div class="container-xl">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-nav flex-row order-md-last">
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <span class="avatar avatar-sm" {{ if ne .Avatar "" }}style="background-image: url({{ .Avatar }})"{{ end }}>
+                  {{ if eq .Avatar "" }}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
+                  {{ end }}
+                </span>
+                <div class="d-none d-xl-block ps-2">
+                  <div>{{ .Profile.Username }}</div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <a href="/user/profile" class="dropdown-item">Profile & account</a>
+                <div class="dropdown-divider"></div>
+                <a href="/dashboard/list" class="dropdown-item">Dashboard setting</a>
+                <div class="dropdown-divider"></div>
+                <a href="/auth/logout" class="dropdown-item">Logout</a>
+              </div>
+            </div>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-menu">
+            <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg>
+                    </span>
+                    <span class="nav-link-title">
+                      Home
+                    </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/bookmark" >
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmarks" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M13 7a2 2 0 0 1 2 2v12l-5 -3l-5 3v-12a2 2 0 0 1 2 -2h6z"></path><path d="M9.265 4a2 2 0 0 1 1.735 -1h6a2 2 0 0 1 2 2v12l-1 -.6"></path></svg>
+                      </span>
+                    <span class="nav-link-title">
+                      Bookmarks
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="page-wrapper">
+        <div class="page-body">
+          {{embed}}
+        </div>
+        <footer class="footer footer-transparent d-print-none">
+          <div class="container-xl">
+            <div class="row text-center align-items-center flex-row-reverse">
+              <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <ul class="list-inline list-inline-dots mb-0">
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="link-secondary" rel="noopener">
+                      version: {{ currentVersion }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+  </body>
+</html>

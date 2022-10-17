@@ -13,3 +13,13 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Macosx
+.DS_Store
+
+# air tmp folder
+.air/
+
+# sqlite database
+*.db
+*.sqlite
