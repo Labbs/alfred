@@ -12,7 +12,6 @@ func checkSession() fiber.Handler {
 				return c.Redirect("/auth/login", fiber.StatusTemporaryRedirect)
 			}
 		}
-		c.Next()
 		return c.Next()
 	}
 }
