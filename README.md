@@ -11,5 +11,3 @@ I would like to implement the following features:
   - [X] Manage bookmarks
   - [ ] Manage passwords
   - ...
-
-More information in next days.
