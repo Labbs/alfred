@@ -11,6 +11,7 @@ import (
 	"github.com/labbs/alfred/pkg/config"
 	"github.com/labbs/alfred/pkg/database"
 	"github.com/labbs/alfred/pkg/logger"
+	"github.com/labbs/alfred/pkg/services/cronscheduler"
 	"github.com/labbs/alfred/pkg/services/webui"
 )
 
@@ -22,6 +23,9 @@ func RunServer(ctx *cli.Context) error {
 	database.InitDatabase()
 
 	config.Version = ctx.App.Version
+
+	// Init cron scheduler
+	cronscheduler.InitScheduler()
 
 	r := fiber.New(fiber.Config{
 		Views:                 webui.EngineInit(),
