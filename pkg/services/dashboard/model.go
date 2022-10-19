@@ -8,7 +8,7 @@ import (
 )
 
 type Dashboard struct {
-	Id      string `json:"id" gorm:"primary_key"`
+	Id      string `json:"id" gorm:"primaryKey"`
 	Name    string `json:"name"`
 	Default bool   `json:"default"`
 	UserId  string `gorm:"index" json:"-"`
@@ -17,7 +17,7 @@ type Dashboard struct {
 }
 
 type Widget struct {
-	Id            string           `json:"id" gorm:"primary_key"`
+	Id            string           `json:"id" gorm:"primaryKey"`
 	Name          string           `json:"name"`
 	X             int              `json:"x"`
 	Y             int              `json:"y"`
@@ -26,20 +26,12 @@ type Widget struct {
 	Configuration ConfigurationMap `gorm:"type:longtext" json:"configuration"`
 	HTML          string           `gorm:"type:longtext" json:"html"`
 	CSS           string           `gorm:"type:longtext" json:"css"`
+	JS            string           `gorm:"type:longtext" json:"js"`
+	Cron          string           `json:"cron"`
+	CronFunction  string           `json:"cronFunction"`
 
 	DashboardId string `gorm:"index" json:"-"`
 	UserId      string `gorm:"index" json:"-"`
-}
-
-type WidgetType struct {
-	Name string `yaml:"name"`
-	Size struct {
-		W int `yaml:"w"`
-		H int `yaml:"h"`
-	} `yaml:"size"`
-	HTML          string           `yaml:"html,omitempty"`
-	CSS           string           `yaml:"css,omitempty"`
-	Configuration ConfigurationMap `yaml:"configuration,omitempty"`
 }
 
 type ConfigurationMap map[string]interface{}
