@@ -13,6 +13,10 @@
         </div>
         <div class="col-12 col-md-auto ms-auto d-print-none">
           <div class="btn-list">
+            <a href="#" class="btn btn-primary d-none d-sm-inline-block" onClick="addNewWidget()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              Add widget
+            </a>
             <a onClick="save()" class="btn btn-primary d-none d-sm-inline-block">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-floppy" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path><circle cx="12" cy="14" r="2"></circle><polyline points="14 4 14 8 8 8 8 4"></polyline></svg>
               Save
@@ -25,21 +29,8 @@
   <div class="page-body">
     <div class="container-xl">
       <div class="row row-cards">
-        <div class="col-10">
+        <div class="col-12">
           <div class="grid-stack"></div>
-        </div>
-        <div class="col-2" >
-          <div class="row row-cards">
-            {{ range .WidgetsList }}
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  {{ .Name }} - <a onClick="addWidget({{ widgetConfigTransform . }})"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></a>
-                </div>
-              </div>
-            </div>
-          {{ end }}
-          </div>
         </div>
       </div>
     </div>
@@ -53,7 +44,7 @@
   let items = {{ .Dashboard.Widgets }};
   let itemsToSave = items;
   let tmpId = 0;
-  let requiredValues = {h: null, w: null, x: null, y: null, configuration: null, html: null, css: null, name: null, id: null, tmpId: null};
+  let requiredValues = {h: null, w: null, x: null, y: null, configuration: null, html: null, css: null, js: null, name: null, id: null, tmpId: null};
 
   items.forEach(function(item) {
     addWidget(item);
@@ -96,6 +87,11 @@
     grid.addWidget(config);
     tmpId++;
   };
+
+  function addNewWidget() {
+    var item = { w: 2, h: 2, name: "New widget", configuration: {}, html: "", css: "", js: "", id: "" };
+    addWidget(item);
+  }
 
   function removeWidget(el) {
     grid.removeWidget(el, true, true);

@@ -21,7 +21,6 @@ func (h dashboardHandler) editDashboard(c *fiber.Ctx) error {
 	}
 
 	d["Dashboard"] = dashboard
-	d["WidgetsList"] = h.widgetsList
 
 	return c.Render("templates/dashboard_edit", d, "templates/layouts/main")
 }
