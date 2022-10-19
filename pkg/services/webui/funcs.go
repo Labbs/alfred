@@ -48,13 +48,14 @@ func toJson(v interface{}) string {
 	return string(jsonBytes)
 }
 
-func widgetConfigTransform(widget dash.WidgetType) map[string]interface{} {
+func widgetConfigTransform(widget dash.Widget) map[string]interface{} {
 	return map[string]interface{}{
 		"name":          widget.Name,
-		"h":             widget.Size.H,
-		"w":             widget.Size.W,
+		"h":             widget.H,
+		"w":             widget.W,
 		"html":          widget.HTML,
 		"css":           widget.CSS,
+		"js":            widget.JS,
 		"configuration": widget.Configuration,
 	}
 }
