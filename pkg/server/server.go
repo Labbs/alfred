@@ -30,6 +30,10 @@ func RunServer(ctx *cli.Context) error {
 	r := fiber.New(fiber.Config{
 		Views:                 webui.EngineInit(),
 		DisableStartupMessage: true,
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			c.Cookie(&fiber.Cookie{Name: "error-flash", Value: err.Error()})
+			return c.Redirect("/")
+		},
 	})
 
 	// enable gofiber logs (custom middleware)
