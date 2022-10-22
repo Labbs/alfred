@@ -25,4 +25,5 @@ func InitRoute(r fiber.Router, sessions *session.Store) {
 	g.Post("/widget/save/:id", h.saveWidget)
 	g.Get("/edit/:id", h.editDashboard)
 	g.Post("/save/:id", h.saveDashboard)
+	g.Get("/export/:id", h.exportDashboard)
 }
