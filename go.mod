@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-co-op/gocron v1.17.1
 	github.com/gocolly/colly v1.2.0
-	github.com/gofiber/fiber/v2 v2.37.1
+	github.com/gofiber/fiber/v2 v2.38.1
 	github.com/gofiber/storage/memory v0.0.0-20221014050051-2bd20cfa5ae1
 	github.com/gofiber/template v1.7.1
 	github.com/gosimple/slug v1.13.1
