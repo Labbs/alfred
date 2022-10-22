@@ -5,11 +5,12 @@ import (
 )
 
 type User struct {
-	Id       string `gorm:"primaryKey" json:"id"`
-	Username string `gorm:"index" json:"username"`
-	Password string `json:"password,omitempty"`
-	Email    string `json:"email"`
-	Avatar   string `json:"avatar"`
+	Id        string `gorm:"primaryKey" json:"id"`
+	Username  string `gorm:"index" json:"username"`
+	Password  string `json:"password,omitempty"`
+	Email     string `json:"email"`
+	Avatar    string `json:"avatar"`
+	LightDark string `json:"light_dark"`
 }
 
 type UserRepository interface {
