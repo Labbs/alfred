@@ -55,7 +55,7 @@ func (d DashboardRepositoryDB) CreateDashboard(b Dashboard) *exception.AppError 
 }
 
 func (d DashboardRepositoryDB) UpdateDashboard(b Dashboard) *exception.AppError {
-	r := d.client.DB.Debug().Save(&b)
+	r := d.client.DB.Save(&b)
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to update dashboard", r.Error)
 	}
@@ -79,7 +79,7 @@ func (d DashboardRepositoryDB) SetDefaultDashboard(id string, userId string) *ex
 }
 
 func (d DashboardRepositoryDB) UpdateWidget(widget Widget) *exception.AppError {
-	r := d.client.DB.Debug().Save(&widget)
+	r := d.client.DB.Save(&widget)
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to update widget", r.Error)
 	}
@@ -87,7 +87,7 @@ func (d DashboardRepositoryDB) UpdateWidget(widget Widget) *exception.AppError {
 }
 
 func (d DashboardRepositoryDB) DeleteWidget(id string, userId string) *exception.AppError {
-	r := d.client.DB.Debug().Where("id = ? and user_id = ?", id, userId).Delete(&Widget{})
+	r := d.client.DB.Where("id = ? and user_id = ?", id, userId).Delete(&Widget{})
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to delete widget", r.Error)
 	}
@@ -95,7 +95,7 @@ func (d DashboardRepositoryDB) DeleteWidget(id string, userId string) *exception
 }
 
 func (d DashboardRepositoryDB) CreateWidget(widget Widget) *exception.AppError {
-	r := d.client.DB.Debug().Create(&widget)
+	r := d.client.DB.Create(&widget)
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to create widget", r.Error)
 	}
@@ -104,10 +104,20 @@ func (d DashboardRepositoryDB) CreateWidget(widget Widget) *exception.AppError {
 
 func (d DashboardRepositoryDB) GetWidgetsByDashboardId(dashboardId, userId string) ([]Widget, *exception.AppError) {
 	var w []Widget
-	r := d.client.DB.Debug().
+	r := d.client.DB.
 		Where("dashboard_id = ? and user_id = ?", dashboardId, userId).Find(&w)
 	if r.Error != nil {
 		return []Widget{}, exception.NewUnexpectedError("unable to find widget(s)", r.Error)
+	}
+	return w, nil
+}
+
+func (d DashboardRepositoryDB) GetWidgetById(id, userId string) (Widget, *exception.AppError) {
+	w := Widget{}
+	r := d.client.DB.
+		Where("id = ? and user_id = ?", id, userId).First(&w)
+	if r.Error != nil {
+		return Widget{}, exception.NewUnexpectedError("unable to find widget", r.Error)
 	}
 	return w, nil
 }
