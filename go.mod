@@ -14,7 +14,7 @@ require (
 	github.com/urfave/cli/v2 v2.15.0
 	golang.org/x/crypto v0.1.0
 	gopkg.in/yaml.v2 v2.4.0
-	gorm.io/driver/mysql v1.3.6
+	gorm.io/driver/mysql v1.4.3
 	gorm.io/driver/postgres v1.3.9
 	gorm.io/driver/sqlite v1.3.6
 	gorm.io/gorm v1.23.8
