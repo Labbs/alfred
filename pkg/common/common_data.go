@@ -17,5 +17,6 @@ func CommonData(sess *session.Store, c *fiber.Ctx) (fiber.Map, *session.Session)
 	u.Password = ""
 	d["Profile"] = u
 	d["Avatar"] = template.URL(u.Avatar)
+	d["LightDark"] = u.LightDark
 	return d, store
 }
