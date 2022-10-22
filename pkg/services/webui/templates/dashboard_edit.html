@@ -83,7 +83,7 @@
 
   function addWidget(config) {
     config.tmpId = tmpId;
-    config.content = '<p class="card-text text-center">' + config.name + '</p><a onClick="removeWidget(this.parentElement.parentElement)">remove</a>';
+    config.content = '<span class="card-text text-center">' + config.name + '</span> - <a href="/dashboard/widget/edit/'+ config.id +'">Edit</a> - <a onClick="removeWidget(this.parentElement.parentElement)">Remove</a>';
     grid.addWidget(config);
     tmpId++;
   };
@@ -91,10 +91,12 @@
   function addNewWidget() {
     var item = { w: 2, h: 2, name: "New widget", configuration: {}, html: "", css: "", js: "", id: "" };
     addWidget(item);
+    save();
   }
 
   function removeWidget(el) {
     grid.removeWidget(el, true, true);
+    save();
   };
 
   function save() {
@@ -102,8 +104,9 @@
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(itemsToSave),
+    }).then(function(response) {
+      window.location.href = "/dashboard/edit/{{ .Dashboard.Id }}";
     });
-    window.location.href = "/dashboard/edit/{{ .Dashboard.Id }}";
   }
 
   function reduceMap(model, requiredModel) {
