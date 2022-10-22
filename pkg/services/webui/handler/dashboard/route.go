@@ -21,6 +21,8 @@ func InitRoute(r fiber.Router, sessions *session.Store) {
 	g.Post("/create", h.createDashboard)
 	g.Get("/delete/:id", h.deleteDashboard)
 	g.Get("/set_default/:id", h.setDefaultDashboard)
+	g.Get("/widget/edit/:id", h.editWidget)
+	g.Post("/widget/save/:id", h.saveWidget)
 	g.Get("/edit/:id", h.editDashboard)
 	g.Post("/save/:id", h.saveDashboard)
 }
