@@ -8,7 +8,7 @@ import (
 )
 
 type Dashboard struct {
-	Id      string `json:"id" gorm:"primaryKey"`
+	Id      string `json:"id,omitempty" gorm:"primaryKey"`
 	Name    string `json:"name"`
 	Default bool   `json:"default"`
 	UserId  string `gorm:"index" json:"-"`
