@@ -1,3 +1,27 @@
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<style>
+.dropzone {
+  border: 1px dashed #e6e7e9;
+  border-radius: 5px;
+  min-height: 150px;
+  padding: 1rem;
+}
+</style>
+<script>
+  Dropzone.options.dropzoneAvatar = {
+    url: "/dashboard/import",
+    maxFilesize: 1,
+    maxFiles: 1,
+    acceptedFiles: "application/json",
+    paramName: "dashboard",
+    init: function() {
+      this.on("success", function(file, response) {
+        window.location.reload();
+      });
+    }
+  };
+</script>
 <div class="container-xl">
   <div class="page-header d-print-none">
     <div class="row g-2 align-items-center">
@@ -12,8 +36,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
             Create new dashboard
           </a>
-          <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-dashboard" aria-label="Create new dashboard">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+          <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-import">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M14 3v4a1 1 0 0 0 1 1h4"></path><path d="M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3"></path></svg>
+            Import dashboard
           </a>
         </div>
       </div>
@@ -60,6 +85,23 @@
           </div>
           {{ end }}
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modal-blur fade" id="modal-import" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Import dashboard</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/dashboard/import" class="form-control dropzone" id="dropzoneAvatar">
+          <div class="fallback">
+            <input name="file" type="file" />
+          </div>
+        </form>
       </div>
     </div>
   </div>
