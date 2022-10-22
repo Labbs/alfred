@@ -1,6 +1,8 @@
 package dasbboard
 
 import (
+	"html/template"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/labbs/alfred/pkg/common"
 	"github.com/labbs/alfred/pkg/logger"
@@ -22,6 +24,17 @@ func (h dashboardHandler) index(c *fiber.Ctx) error {
 	} else {
 		d["Dashboard"] = dashboard
 	}
+
+	var css string
+	var js string
+
+	for _, widget := range dashboard.Widgets {
+		css += widget.CSS
+		js += widget.JS
+	}
+
+	d["CSS"] = template.CSS(css)
+	d["JS"] = template.JS(js)
 
 	return c.Render("templates/dashboard", d, "templates/layouts/main")
 }

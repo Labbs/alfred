@@ -8,7 +8,7 @@ import (
 )
 
 type Dashboard struct {
-	Id      string `json:"id" gorm:"primary_key"`
+	Id      string `json:"id,omitempty" gorm:"primaryKey"`
 	Name    string `json:"name"`
 	Default bool   `json:"default"`
 	UserId  string `gorm:"index" json:"-"`
@@ -17,29 +17,18 @@ type Dashboard struct {
 }
 
 type Widget struct {
-	Id            string           `json:"id" gorm:"primary_key"`
-	Name          string           `json:"name"`
-	X             int              `json:"x"`
-	Y             int              `json:"y"`
-	W             int              `json:"w"`
-	H             int              `json:"h"`
-	Configuration ConfigurationMap `gorm:"type:longtext" json:"configuration"`
-	HTML          string           `gorm:"type:longtext" json:"html"`
-	CSS           string           `gorm:"type:longtext" json:"css"`
+	Id   string `json:"id" gorm:"primaryKey"`
+	Name string `json:"name"`
+	X    int    `json:"x"`
+	Y    int    `json:"y"`
+	W    int    `json:"w"`
+	H    int    `json:"h"`
+	HTML string `gorm:"type:longtext" json:"html"`
+	CSS  string `gorm:"type:longtext" json:"css"`
+	JS   string `gorm:"type:longtext" json:"js"`
 
 	DashboardId string `gorm:"index" json:"-"`
 	UserId      string `gorm:"index" json:"-"`
-}
-
-type WidgetType struct {
-	Name string `yaml:"name"`
-	Size struct {
-		W int `yaml:"w"`
-		H int `yaml:"h"`
-	} `yaml:"size"`
-	HTML          string           `yaml:"html,omitempty"`
-	CSS           string           `yaml:"css,omitempty"`
-	Configuration ConfigurationMap `yaml:"configuration,omitempty"`
 }
 
 type ConfigurationMap map[string]interface{}
@@ -71,4 +60,5 @@ type DashboardRepository interface {
 	DeleteWidget(id string, userId string) *exception.AppError
 	CreateWidget(widget Widget) *exception.AppError
 	GetWidgetsByDashboardId(dashboardId, userId string) ([]Widget, *exception.AppError)
+	GetWidgetById(id, userId string) (Widget, *exception.AppError)
 }

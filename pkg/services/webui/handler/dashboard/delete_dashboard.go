@@ -13,9 +13,9 @@ func (h dashboardHandler) deleteDashboard(c *fiber.Ctx) error {
 	if err != nil {
 		logger.Logger.Error().Err(err.Error).Msg("Failed to delete dashboard")
 		c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to delete dashboard"})
-		return c.Redirect("/app/dashboard/list")
+		return c.Redirect("/dashboard/list")
 	} else {
 		c.Cookie(&fiber.Cookie{Name: "success-flash", Value: "Dashboard deleted successfully"})
-		return c.Redirect("/app/dashboard/list")
+		return c.Redirect("/dashboard/list")
 	}
 }

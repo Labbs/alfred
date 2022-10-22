@@ -49,14 +49,6 @@ func server() *cli.Command {
 			Usage:       "Enable metrics page",
 			Destination: &config.EnableMetricsPage,
 		},
-		&cli.StringFlag{
-			Name:        "widgets-list",
-			Aliases:     []string{"wl"},
-			EnvVars:     []string{"WIDGETS_LIST"},
-			Value:       "widgets.yaml",
-			Usage:       "Widgets list file",
-			Destination: &config.WidgetsList,
-		},
 	}
 	flags = append(flags, databaseFlags...)
 	return &cli.Command{

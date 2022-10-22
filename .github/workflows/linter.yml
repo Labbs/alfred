@@ -1,10 +1,5 @@
 name: golangci-lint
 on:
-  push:
-    tags:
-      - v*
-    branches:
-      - '*'
   pull_request:
 permissions:
   contents: read
@@ -23,3 +18,4 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: latest
+          args: --timeout 3m

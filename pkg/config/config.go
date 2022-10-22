@@ -20,6 +20,5 @@ var (
 		Expire    int
 	}
 
-	Version     string
-	WidgetsList string
+	Version string
 )
