@@ -1,0 +1,42 @@
+<div class="page-wrapper">
+  <div class="container-xl">
+    <div class="page-header d-print-none">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            Wdiget Edit
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row row-cards">
+        <form action="/dashboard/widget/save/{{ .Widget.Id }}" method="post">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ .Widget.Name }}">
+          </div>
+          <div class="mb-3">
+            <label for="html" class="form-label">HTML</label>
+            <textarea class="form-control" id="html" name="html" rows="3">{{ .Widget.HTML }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="css" class="form-label">CSS</label>
+            <textarea class="form-control" id="css" name="css" rows="3">{{ .Widget.CSS }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="js" class="form-label">JS</label>
+            <textarea class="form-control" id="js" name="js" rows="3">{{ .Widget.JS }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="configuration" class="form-label">Configuration</label>
+            <textarea class="form-control" id="configuration" name="configuration" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
