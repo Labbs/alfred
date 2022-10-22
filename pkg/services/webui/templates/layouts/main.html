@@ -89,6 +89,20 @@
       </header>
       <div class="page-wrapper">
         <div class="page-body">
+          <div class="container-xl">
+            {{ if ne .Success "" }}
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <div>{{ .Success }}</div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{ end }}
+            {{ if ne .Error "" }}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <div>{{ .Error }}</div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{ end }}
+          </div>
           {{embed}}
         </div>
         <footer class="footer footer-transparent d-print-none">
