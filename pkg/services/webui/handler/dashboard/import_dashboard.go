@@ -37,14 +37,19 @@ func (h dashboardHandler) importDashboard(c *fiber.Ctx) error {
 
 	var d dashboard.Dashboard
 
-	json.Unmarshal(file, &d)
+	err := json.Unmarshal(file, &d)
+	if err != nil {
+		logger.Logger.Error().Err(err).Str("event", "dashboard.import_dashboard").Msg("could_not_unmarshal_file")
+		c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Could not unmarshal file"})
+		return c.Redirect("/dashboard/list")
+	}
 
 	d.UserId = store.Get("user_id").(string)
 	d.Id = slug.Make(d.Name) + "-" + string(common.RandomString(5))
 
-	err := h.dashboard.CreateDashboard(d)
-	if err != nil {
-		logger.Logger.Error().Err(err.Error).Msg("Failed to create dashboard")
+	errC := h.dashboard.CreateDashboard(d)
+	if errC != nil {
+		logger.Logger.Error().Err(errC.Error).Msg("Failed to create dashboard")
 		c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to create dashboard"})
 		return c.Redirect("/dashboard/list")
 	} else {
