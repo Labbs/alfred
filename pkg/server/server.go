@@ -11,6 +11,7 @@ import (
 	"github.com/labbs/alfred/pkg/config"
 	"github.com/labbs/alfred/pkg/database"
 	"github.com/labbs/alfred/pkg/logger"
+	"github.com/labbs/alfred/pkg/services/api"
 	"github.com/labbs/alfred/pkg/services/cronscheduler"
 	"github.com/labbs/alfred/pkg/services/webui"
 )
@@ -49,6 +50,7 @@ func RunServer(ctx *cli.Context) error {
 		r.Get("/metrics", monitor.New(monitor.Config{Title: "Alfred Metrics Page"}))
 	}
 
+	api.InitRoute(r)
 	// init WebUI routes
 	webui.InitRoute(r)
 
