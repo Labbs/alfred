@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/labbs/alfred/pkg/services/api/handler/bookmark"
 	"github.com/labbs/alfred/pkg/services/user"
 )
 
@@ -13,4 +14,6 @@ func InitRoute(r *fiber.App) {
 	userRepository = user.NewUserRepository()
 	g := r.Group("/api")
 	g.Use(checkToken())
+
+	bookmark.InitRoute(g)
 }
