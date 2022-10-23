@@ -8,11 +8,11 @@ import (
 
 func checkToken() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		token, err := userRepository.FindTokenById(c.GetRespHeader("Token"))
+		token, err := userRepository.FindTokenById(c.Get("token"))
 		if err != nil && token.Id == "" {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
-		path := strings.Split(c.Path(), "/")[1]
+		path := strings.Split(c.Path(), "/")[2]
 		match := false
 		for _, scope := range token.Scope {
 			if scope.Name == path {
