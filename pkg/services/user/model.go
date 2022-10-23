@@ -54,5 +54,5 @@ type UserRepository interface {
 	UpdateUser(user User) *exception.AppError
 	CreateToken(token Token) *exception.AppError
 	FindTokenById(id string) (Token, *exception.AppError)
-	DeleteTokenById(id string) *exception.AppError
+	DeleteTokenById(id, userId string) *exception.AppError
 }

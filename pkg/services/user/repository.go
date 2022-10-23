@@ -48,8 +48,8 @@ func (d UserRepositoryDB) FindTokenById(id string) (Token, *exception.AppError) 
 	return t, nil
 }
 
-func (d UserRepositoryDB) DeleteTokenById(id string) *exception.AppError {
-	r := d.client.DB.Delete(&Token{}, id)
+func (d UserRepositoryDB) DeleteTokenById(id, userId string) *exception.AppError {
+	r := d.client.DB.Where("id = ? and user_id = ?", id, userId).Delete(&Token{})
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to delete token", r.Error)
 	}
