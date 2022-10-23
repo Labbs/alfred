@@ -30,7 +30,7 @@ func migrate(ctx *cli.Context) error {
 
 	db := database.GetDbConnection()
 
-	err := db.DB.AutoMigrate(&u.User{}, &b.Bookmark{}, &b.Tag{}, &d.Dashboard{}, &d.Widget{})
+	err := db.DB.AutoMigrate(&u.User{}, &b.Bookmark{}, &b.Tag{}, &d.Dashboard{}, &d.Widget{}, &u.Token{})
 	if err != nil {
 		logger.Logger.Error().Err(err).Msg("Error migrating database")
 		return nil
