@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Migration database (tables not deleted with this action)
 /app database migration
