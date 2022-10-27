@@ -41,7 +41,10 @@ func New(config ...Config) *Storage {
 		}
 	}
 
-	cfg.DB.AutoMigrate(&Session{})
+	err := cfg.DB.AutoMigrate(&Session{})
+	if err != nil {
+		panic(err)
+	}
 
 	// Create storage
 	store := &Storage{
