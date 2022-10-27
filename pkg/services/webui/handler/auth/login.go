@@ -28,7 +28,7 @@ func (h authHandler) login(c *fiber.Ctx) error {
 
 		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(c.FormValue("password")))
 		if err != nil {
-			logger.Logger.Error().Err(err).Str("event", "webui.login.compare_password").Msg("incorect password for " + user.Username)
+			logger.Logger.Error().Err(err).Str("event", "webui.login.compare_password").Msg("incorrect password for " + user.Username)
 			d["Error"] = "Incorrect password"
 			return c.Redirect("/auth/login")
 		}
