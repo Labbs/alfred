@@ -21,7 +21,7 @@ type User struct {
 type Token struct {
 	Id     string `gorm:"primaryKey" json:"id"`
 	Name   string `json:"name"`
-	UserId string `json:"user_id"`
+	UserId string `gorm:"index" json:"-"`
 
 	Scope ScopeStruct `json:"scope"`
 
