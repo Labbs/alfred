@@ -2,12 +2,9 @@
 
 ## What is it?
 
-Alfred is an application for managing several personal information. The application is written in Golang.
+Alfred is a multi-function application. Its purpose is to centralize several functionalities in the same place such as bookmarks, passwords, notes, ...
 
-I would like to implement the following features:
-  - [ ] Dashboarding
-  - [ ] Manage contacts
-  - [ ] Manage calendar
-  - [X] Manage bookmarks
-  - [ ] Manage passwords
-  - ...
+Currently two features are available:
+
+- Bookmarks manager
+- Dashboard
