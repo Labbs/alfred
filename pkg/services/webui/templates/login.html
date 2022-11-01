@@ -2,13 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Albert</title>
+    <title>Alfred</title>
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
   </head>
   <body class="theme-light">
     <div class="page page-center">
       <div class="container-tight py-4">
+        {{ if ne .Error "" }}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <div>{{ .Error }}</div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{ end }}
         <form class="card card-md" action="/app/login" method="post" autocomplete="off" >
           <div class="card-body">
             <h2 class="card-title text-center mb-4">Login to your account</h2>

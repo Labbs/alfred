@@ -10,6 +10,9 @@ import (
 
 func (h authHandler) login(c *fiber.Ctx) error {
 	d := make(fiber.Map)
+	d["Error"] = c.Cookies("error-flash")
+	d["Success"] = c.Cookies("success-flash")
+	c.ClearCookie("error-flash", "success-flash")
 
 	if c.Method() == "POST" {
 
