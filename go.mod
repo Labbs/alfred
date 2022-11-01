@@ -10,7 +10,7 @@ require (
 	github.com/gofiber/template v1.7.1
 	github.com/gosimple/slug v1.13.1
 	github.com/rs/zerolog v1.28.0
-	github.com/urfave/cli/v2 v2.20.3
+	github.com/urfave/cli/v2 v2.23.0
 	golang.org/x/crypto v0.1.0
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/driver/postgres v1.4.5
