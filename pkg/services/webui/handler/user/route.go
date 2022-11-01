@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/memory"
 	u "github.com/labbs/alfred/pkg/services/user"

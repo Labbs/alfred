@@ -1,7 +1,7 @@
 package bookmark
 
 import (
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	b "github.com/labbs/alfred/pkg/services/bookmark"
 	u "github.com/labbs/alfred/pkg/services/user"
 )

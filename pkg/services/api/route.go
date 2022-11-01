@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/labbs/alfred/pkg/services/api/handler/bookmark"
 	"github.com/labbs/alfred/pkg/services/user"

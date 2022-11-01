@@ -1,7 +1,7 @@
 package webui
 
 import (
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 )
 
 func checkSession() fiber.Handler {

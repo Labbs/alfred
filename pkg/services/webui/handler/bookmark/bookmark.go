@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	"github.com/labbs/alfred/pkg/common"
 	"github.com/labbs/alfred/pkg/logger"
 	b "github.com/labbs/alfred/pkg/services/bookmark"

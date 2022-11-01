@@ -3,7 +3,7 @@ package dasbboard
 import (
 	"encoding/json"
 
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	"github.com/gosimple/slug"
 	"github.com/labbs/alfred/pkg/common"
 	"github.com/labbs/alfred/pkg/logger"
