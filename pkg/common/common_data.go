@@ -3,7 +3,7 @@ package common
 import (
 	"html/template"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 
 	"github.com/labbs/alfred/pkg/services/user"

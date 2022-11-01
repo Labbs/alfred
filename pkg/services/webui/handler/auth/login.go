@@ -3,7 +3,7 @@ package auth
 import (
 	"fmt"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/labbs/alfred/pkg/logger"
 	"golang.org/x/crypto/bcrypt"
 )

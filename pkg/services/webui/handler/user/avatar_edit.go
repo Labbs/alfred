@@ -3,7 +3,7 @@ package user
 import (
 	"encoding/base64"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/labbs/alfred/pkg/common"
 	"github.com/labbs/alfred/pkg/logger"
 )

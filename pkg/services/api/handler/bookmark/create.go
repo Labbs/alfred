@@ -3,7 +3,7 @@ package bookmark
 import (
 	"strings"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
 	"github.com/labbs/alfred/pkg/logger"
 	b "github.com/labbs/alfred/pkg/services/bookmark"

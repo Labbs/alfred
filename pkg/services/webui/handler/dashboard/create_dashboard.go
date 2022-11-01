@@ -1,7 +1,7 @@
 package dasbboard
 
 import (
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gosimple/slug"
 	"github.com/labbs/alfred/pkg/common"
 	"github.com/labbs/alfred/pkg/logger"

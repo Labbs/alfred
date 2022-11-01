@@ -3,7 +3,7 @@ package api
 import (
 	"strings"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
 func checkToken() fiber.Handler {
