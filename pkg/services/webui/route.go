@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html"
-	"github.com/labbs/fiber-storage/gorm"
+	"github.com/labbs/alfred/pkg/common/gorm"
 
 	"github.com/labbs/alfred/pkg/database"
 	"github.com/labbs/alfred/pkg/services/webui/handler/auth"
