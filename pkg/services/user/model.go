@@ -23,7 +23,7 @@ type Token struct {
 	Name   string `json:"name"`
 	UserId string `gorm:"index" json:"-"`
 
-	Scope ScopeStruct `json:"scope"`
+	Scope ScopeStruct `gorm:"type:longtext" json:"scope"`
 
 	CreatedAt int64 `json:"created_at"`
 }
@@ -36,7 +36,7 @@ type Scope struct {
 
 func (sla *ScopeStruct) Scan(value interface{}) error {
 	var skills []Scope
-	err := json.Unmarshal([]byte(value.(string)), &skills)
+	err := json.Unmarshal([]byte(value.([]uint8)), &skills)
 	if err != nil {
 		return err
 	}
