@@ -32,7 +32,7 @@ func truncateByWord(s string, i int) string {
 	return strings.Join(ss, " ")
 }
 
-func joinTags(tags []b.Tag) string {
+func joinTags(tags []*b.Tag) string {
 	var t []string
 	for _, tag := range tags {
 		t = append(t, tag.Name)
