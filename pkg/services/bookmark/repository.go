@@ -53,13 +53,21 @@ func (d BookmarkRepositoryDB) UpdateBookmark(b Bookmark) *exception.AppError {
 }
 
 func (d BookmarkRepositoryDB) DeleteBookmark(id string, userId string) *exception.AppError {
+	bookmark, err := d.GetBookmarkById(userId, id)
+	if err != nil {
+		return exception.NewUnexpectedError("unable to delete bookmark", err.Error)
+	}
+
+	for _, tag := range bookmark.Tags {
+		err := d.client.DB.Model(&tag).Association("Bookmarks").Delete(&bookmark)
+		if err != nil {
+			return exception.NewUnexpectedError("unable to delete bookmark", err)
+		}
+	}
+
 	r := d.client.DB.Where("id = ? and user_id = ?", id, userId).Delete(&Bookmark{})
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to delete bookmark", r.Error)
-	}
-	r = d.client.DB.Where("bookmark_id = ?", id).Delete(&Tag{})
-	if r.Error != nil {
-		return exception.NewUnexpectedError("unable to delete bookmark tags", r.Error)
 	}
 	return nil
 }
@@ -97,12 +105,30 @@ func (d BookmarkRepositoryDB) FindBookmarkByWord(userId string, word string) ([]
 	return b, nil
 }
 
+func (d BookmarkRepositoryDB) CreateTag(t Tag) *exception.AppError {
+	r := d.client.DB.Create(&t)
+	if r.Error != nil {
+		return exception.NewUnexpectedError("unable to create tag", r.Error)
+	}
+	return nil
+}
+
 func (d BookmarkRepositoryDB) GetTags(userId string) ([]Tag, *exception.AppError) {
 	var t []Tag
-	r := d.client.DB.
+	r := d.client.DB.Preload("Bookmarks").
 		Where("user_id = ?", userId).Find(&t)
 	if r.Error != nil {
 		return []Tag{}, exception.NewUnexpectedError("unable to find tag(s)", r.Error)
+	}
+	return t, nil
+}
+
+func (d BookmarkRepositoryDB) GetTagByName(userId string, name string) (Tag, *exception.AppError) {
+	t := Tag{}
+	r := d.client.DB.
+		Where("name = ? and user_id = ?", name, userId).First(&t)
+	if r.Error != nil {
+		return Tag{}, exception.NewUnexpectedError("unable to find tag", r.Error)
 	}
 	return t, nil
 }
@@ -121,6 +147,14 @@ func (d BookmarkRepositoryDB) DeleteTag(id string, userId string) *exception.App
 	r := d.client.DB.Where("id = ? and user_id = ?", id, userId).Delete(&Tag{})
 	if r.Error != nil {
 		return exception.NewUnexpectedError("unable to delete tag", r.Error)
+	}
+	return nil
+}
+
+func (d BookmarkRepositoryDB) DeleteUnusedTag(b Bookmark, t Tag) *exception.AppError {
+	r := d.client.DB.Model(&b).Association("Tags").Delete(&t)
+	if r != nil {
+		return exception.NewUnexpectedError("unable to delete tag", r)
 	}
 	return nil
 }

@@ -28,31 +28,44 @@ func (h bookmarkHandler) editBookmark(c *fiber.Ctx) error {
 		return c.Redirect("/bookmark")
 	}
 
-	var tags []b.Tag
+	var tags []*b.Tag
 	_tags := strings.Split(c.FormValue("tags_list"), ",")
-	for _, tag := range _tags {
-		exists := false
-		for _, t := range _b.Tags {
-			toDelete := true
-			if t.Name == tag {
-				tags = append(tags, t)
-				exists = true
-				toDelete = false
-			}
-			if toDelete {
-				err := h.bookmark.DeleteTag(t.Id, store.Get("user_id").(string))
-				if err != nil {
-					logger.Logger.Error().Err(err.Error).Str("event", "bookmark.update.delete_tag").Msg("could_not_delete_tag")
-					c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Could not delete tag"})
-					return c.Redirect("/bookmark")
-				}
+	for _, t := range _tags {
+		tag, err := h.bookmark.GetTagByName(store.Get("user_id").(string), t)
+		if err != nil && err.Error.Error() != "record not found" {
+			logger.Logger.Error().Err(err.Error).Str("event", "webui.editBookmark").Msg("failed to get tag")
+			c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to edit bookmark"})
+			return c.Redirect("/bookmark")
+		}
+		if tag.Id == "" {
+			tag.Id = utils.UUIDv4()
+			tag.Name = t
+			tag.UserId = store.Get("user_id").(string)
+			err := h.bookmark.CreateTag(tag)
+			if err != nil {
+				logger.Logger.Error().Err(err.Error).Str("event", "webui.editBookmark").Msg("failed to create tag")
+				c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to edit bookmark"})
+				return c.Redirect("/bookmark")
 			}
 		}
-		if !exists {
-			tags = append(tags, b.Tag{
-				Id:     utils.UUIDv4(),
-				Name:   tag,
-				UserId: store.Get("user_id").(string)})
+		tags = append(tags, &tag)
+	}
+
+	for _, t := range _b.Tags {
+		exist := false
+		for _, _t := range tags {
+			if t.Name == _t.Name {
+				exist = true
+				break
+			}
+		}
+		if !exist {
+			err := h.bookmark.DeleteUnusedTag(_b, *t)
+			if err != nil {
+				logger.Logger.Error().Err(err.Error).Str("event", "webui.editBookmark").Msg("failed to delete unused tag")
+				c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to edit bookmark"})
+				return c.Redirect("/bookmark")
+			}
 		}
 	}
 

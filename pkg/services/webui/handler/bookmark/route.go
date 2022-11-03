@@ -21,4 +21,5 @@ func InitRoute(r fiber.Router, sessions *session.Store) {
 	g.Post("/create/bulk", h.createBulkBookmark)
 	g.Post("/edit/:id", h.editBookmark)
 	g.Get("/delete/:id", h.deleteBookmark)
+	g.Get("/tags/clean_unused", h.cleanUnusedTags)
 }
