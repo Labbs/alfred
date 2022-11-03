@@ -10,7 +10,7 @@ type Bookmark struct {
 	Url         string `json:"url,omitempty"`
 	Icon        string `json:"icon,omitempty"`
 	Description string `json:"description,omitempty"`
-	Tags        []Tag  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Tags        []*Tag `gorm:"many2many:bookmark_tags" json:"tags,omitempty"`
 
 	UserId string `gorm:"index" json:"-"`
 }
@@ -19,7 +19,7 @@ type Tag struct {
 	Id   string `gorm:"primaryKey" json:"id"`
 	Name string `json:"name"`
 
-	BookmarkId string `gorm:"index"`
+	Bookmarks []*Bookmark `gorm:"many2many:bookmark_tags;" json:"bookmarks,omitempty"`
 
 	UserId string `gorm:"index" json:"-"`
 }
@@ -36,4 +36,7 @@ type BookmarkRepository interface {
 	GetTags(userId string) ([]Tag, *exception.AppError)
 	GetUniqueTags(userId string) ([]Tag, *exception.AppError)
 	DeleteTag(id string, userId string) *exception.AppError
+	GetTagByName(userId string, name string) (Tag, *exception.AppError)
+	CreateTag(t Tag) *exception.AppError
+	DeleteUnusedTag(b Bookmark, t Tag) *exception.AppError
 }

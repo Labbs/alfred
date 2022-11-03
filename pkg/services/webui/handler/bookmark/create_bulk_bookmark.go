@@ -36,13 +36,25 @@ func (h bookmarkHandler) createBulkBookmark(c *fiber.Ctx) error {
 		bookmark.UserId = store.Get("user_id").(string)
 		bookmark.Url = url
 
-		if len(tags) != 0 {
-			for _, t := range tags {
-				bookmark.Tags = append(bookmark.Tags, b.Tag{
-					Id:     utils.UUIDv4(),
-					Name:   t,
-					UserId: store.Get("user_id").(string)})
+		for _, t := range tags {
+			tag, err := h.bookmark.GetTagByName(store.Get("user_id").(string), t)
+			if err != nil && err.Error.Error() != "record not found" {
+				logger.Logger.Error().Err(err.Error).Str("event", "webui.createBookmark").Msg("failed to get tag")
+				c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to create bookmark"})
+				return c.Redirect("/bookmark")
 			}
+			if tag.Id == "" {
+				tag.Id = utils.UUIDv4()
+				tag.Name = t
+				tag.UserId = store.Get("user_id").(string)
+				err := h.bookmark.CreateTag(tag)
+				if err != nil {
+					logger.Logger.Error().Err(err.Error).Str("event", "webui.createBookmark").Msg("failed to create tag")
+					c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Failed to create bookmark"})
+					return c.Redirect("/bookmark")
+				}
+			}
+			bookmark.Tags = append(bookmark.Tags, &tag)
 		}
 
 		err := h.bookmark.CreateBookmark(bookmark)
