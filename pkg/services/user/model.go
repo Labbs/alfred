@@ -8,12 +8,12 @@ import (
 )
 
 type User struct {
-	Id        string `gorm:"primaryKey" json:"id"`
-	Username  string `gorm:"index" json:"username"`
-	Password  string `json:"password,omitempty"`
-	Email     string `json:"email"`
-	Avatar    string `json:"avatar"`
-	LightDark string `json:"light_dark"`
+	Id       string `gorm:"primaryKey" json:"id"`
+	Username string `gorm:"index" json:"username"`
+	Password string `json:"password,omitempty"`
+	Email    string `json:"email"`
+	Avatar   string `json:"avatar"`
+	DarkMode string `json:"dark_mode"`
 
 	Tokens []Token `json:"tokens" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

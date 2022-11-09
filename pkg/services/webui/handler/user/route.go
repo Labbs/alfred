@@ -31,8 +31,7 @@ func InitRoute(r fiber.Router, sessions *session.Store) {
 	g.Get("/avatar/delete", h.avatarDelete)
 	g.Post("/password/edit", h.passwordEdit)
 	g.Post("/email/edit", h.emailEdit)
-	g.Get("/light", h.lightDarkEdit)
-	g.Get("/dark", h.lightDarkEdit)
+	g.Post("/dark_mode", h.darkMode)
 	g.Post("/token/create", h.tokenCreate)
 	g.Get("/token/delete/:id", h.tokenDelete)
 }
