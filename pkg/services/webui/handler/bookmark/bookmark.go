@@ -1,7 +1,6 @@
 package bookmark
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,7 +17,6 @@ func (h bookmarkHandler) bookmarkList(c *fiber.Ctx) error {
 	c.ClearCookie("error-flash", "success-flash")
 
 	tagFilter := c.Query("tag")
-	fmt.Println(c.FormValue("search"))
 	search := ""
 	if c.Method() == "POST" {
 		search = c.FormValue("search")
