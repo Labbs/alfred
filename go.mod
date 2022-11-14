@@ -3,7 +3,7 @@ module github.com/labbs/alfred
 go 1.19
 
 require (
-	github.com/go-co-op/gocron v1.17.1
+	github.com/go-co-op/gocron v1.18.0
 	github.com/gocolly/colly v1.2.0
 	github.com/gofiber/fiber/v2 v2.39.0
 	github.com/gofiber/storage/memory v0.0.0-20221027071415-dca8f183e44b
