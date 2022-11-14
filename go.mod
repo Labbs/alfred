@@ -7,7 +7,7 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/gofiber/fiber/v2 v2.39.0
 	github.com/gofiber/storage/memory v0.0.0-20221027071415-dca8f183e44b
-	github.com/gofiber/template v1.7.1
+	github.com/gofiber/template v1.7.2
 	github.com/gosimple/slug v1.13.1
 	github.com/rs/zerolog v1.28.0
 	github.com/urfave/cli/v2 v2.23.4
