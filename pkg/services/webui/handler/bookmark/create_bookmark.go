@@ -28,7 +28,12 @@ func (h bookmarkHandler) createBookmark(c *fiber.Ctx) error {
 	bookmark.UserId = store.Get("user_id").(string)
 	bookmark.Url = c.FormValue("url")
 
-	tags := strings.Split(c.FormValue("tags"), ",")
+	var tags []string
+	if c.FormValue("tags") != "" {
+		tags = strings.Split(c.FormValue("tags"), ",")
+	} else {
+		tags = []string{}
+	}
 
 	for _, t := range tags {
 		tag, err := h.bookmark.GetTagByName(store.Get("user_id").(string), t)

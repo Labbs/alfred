@@ -1,3 +1,37 @@
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<style>
+.dropzone {
+  border: 1px dashed #e6e7e9;
+  border-radius: 5px;
+  min-height: 150px;
+  padding: 1rem;
+}
+</style>
+<script>
+  Dropzone.options.dropzoneAvatar = {
+    url: "/bookmark/import",
+    maxFilesize: 1,
+    maxFiles: 1,
+    paramName: "bookmark",
+    init: function() {
+      this.on("success", function(file, response) {
+        window.location.reload();
+      });
+    }
+  };
+</script>
+<div class="container-xl">
+  <div class="page-header d-print-none">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">
+          Profile
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container-xl">
   <div class="page-header d-print-none">
     <div class="row g-2 align-items-center">
@@ -40,6 +74,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7h16"></path><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path><path d="M10 12l4 4m0 -4l-4 4"></path></svg>
                 Clean unused tags
               </a>
+              <a href="" data-bs-toggle="modal" data-bs-target="#modal-import-bookmarks-file">
+                Import bookmarks file
+              </a>
             </div>
           </div>
         </div>
@@ -66,6 +103,8 @@
           </div>
         </div>
       </div>
+      {{ end }}
+      {{ if .Bookmarks }}
       <div class="col-12">
         <div class="card">
           <div class="table-responsive">
@@ -84,7 +123,7 @@
                     {{ if ne .Icon "" }}
                     <img src="{{ .Icon }}" alt="">
                     {{ end }}
-                    {{ .Name }}
+                    {{ truncateByWord .Name 10 }}
                     <a href="{{ .Url }}" class="ms-1" aria-label="Open website" target="_blank" rel="noopener noreferrer">
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></svg>
                     </a>
@@ -123,6 +162,23 @@
         </div>
       </div>
       {{ end }}
+    </div>
+  </div>
+</div>
+<div class="modal modal-blur fade" id="modal-import-bookmarks-file" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Import bookmarks file</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/bookmark/import" class="form-control dropzone" id="dropzoneAvatar">
+          <div class="fallback">
+            <input name="file" type="file" />
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
