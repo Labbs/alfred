@@ -26,7 +26,7 @@ func truncate(s string, i int) string {
 
 func truncateByWord(s string, i int) string {
 	ss := strings.Split(s, " ")
-	if len(s) > i {
+	if len(ss) > i {
 		return strings.Join(ss[:i], " ") + "..."
 	}
 	return strings.Join(ss, " ")
