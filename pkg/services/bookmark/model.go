@@ -6,7 +6,7 @@ import (
 
 type Bookmark struct {
 	Id          string `gorm:"primaryKey" json:"id"`
-	Name        string `json:"name,omitempty"`
+	Name        string `gorm:"type:blob" json:"name,omitempty"`
 	Url         string `json:"url,omitempty"`
 	Icon        string `json:"icon,omitempty"`
 	Description string `json:"description,omitempty"`
