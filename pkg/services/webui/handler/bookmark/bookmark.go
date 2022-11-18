@@ -65,5 +65,9 @@ func (h bookmarkHandler) bookmarkList(c *fiber.Ctx) error {
 
 	d["Bookmarks"] = bookmarks
 
+	if c.Path() == "/bookmark/bulk_edit" {
+		return c.Render("templates/bookmark-bulk-edit", d, "templates/layouts/main")
+	}
+
 	return c.Render("templates/bookmark", d, "templates/layouts/main")
 }
