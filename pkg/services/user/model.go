@@ -12,8 +12,8 @@ type User struct {
 	Username string `gorm:"index" json:"username"`
 	Password string `json:"password,omitempty"`
 	Email    string `json:"email"`
-	Avatar   string `json:"avatar"`
-	DarkMode string `json:"dark_mode"`
+	Avatar   string `json:"avatar" gorm:"default:''"`
+	DarkMode string `json:"dark_mode" gorm:"default:'auto'"`
 
 	Tokens []Token `json:"tokens" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

@@ -4,22 +4,21 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/memory"
-	u "github.com/labbs/alfred/pkg/services/user"
+	"github.com/labbs/alfred/pkg/logger"
 )
 
 type userHandler struct {
-	user     u.UserRepository
-	sessions *session.Store
+	user UserRepository
 }
 
 var (
 	temporaryStore *memory.Storage
 )
 
-func InitRoute(r fiber.Router, sessions *session.Store) {
-	h := userHandler{user: u.NewUserRepository(), sessions: sessions}
+func InitRoute(r fiber.Router) {
+	logger.Logger.Info().Msg("Initializing user routes")
+	h := userHandler{user: NewUserRepository()}
 
 	temporaryStore = memory.New(memory.Config{
 		GCInterval: 10 * time.Second,
