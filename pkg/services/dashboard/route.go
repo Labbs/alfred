@@ -41,4 +41,5 @@ func InitRoute(r fiber.Router) {
 	g.Post("/save/:id", h.saveDashboard)
 	g.Get("/export/:id", h.exportDashboard)
 	g.Post("/import", h.importDashboard)
+	g.Get("/view/:id", h.index)
 }

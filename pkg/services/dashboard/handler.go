@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/utils"
 	"github.com/gosimple/slug"
 	"github.com/labbs/alfred/pkg/common"
+	"github.com/labbs/alfred/pkg/exception"
 	"github.com/labbs/alfred/pkg/logger"
 )
 
@@ -23,7 +24,13 @@ func (h dashboardHandler) index(c *fiber.Ctx) error {
 	c.ClearCookie("error-flash", "success-flash")
 
 	logger.Logger.Debug().Str("event", "dashboard.get_dashboard").Msg("getting_dashboard")
-	dashboard, err := h.dashboard.GetDefaultDashboard(store.Get("user_id").(string))
+	var dashboard Dashboard
+	var err *exception.AppError
+	if c.Params("id") != "" {
+		dashboard, err = h.dashboard.GetDashboardById(store.Get("user_id").(string), c.Params("id"))
+	} else {
+		dashboard, err = h.dashboard.GetDefaultDashboard(store.Get("user_id").(string))
+	}
 	if err != nil && err.Error.Error() != "record not found" {
 		logger.Logger.Error().Err(err.Error).Str("event", "dashboard.get_dashboard").Msg("could_not_get_dashboard")
 		c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Could not get default dashboard"})

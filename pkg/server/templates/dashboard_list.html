@@ -66,6 +66,7 @@
                   <td>{{ .Name }}</td>
                   <td>{{ if .Default }}Yes{{ else }}No{{ end }}</td>
                   <td>
+                    <a href="/dashboard/view/{{ .Id }}">View</a> - 
                     <a href="/dashboard/edit/{{ .Id }}">Edit</a> - 
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ .Id }}">Delete</a> - 
                     <a href="/dashboard/export/{{ .Id }}">Export</a>
