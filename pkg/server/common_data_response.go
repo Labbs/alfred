@@ -2,6 +2,7 @@ package server
 
 import (
 	"html/template"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
@@ -21,5 +22,12 @@ func commonDataResponse(c *fiber.Ctx) fiber.Map {
 	d["Profile"] = u
 	d["Avatar"] = template.URL(u.Avatar)
 	d["DarkMode"] = u.DarkMode
+	d["FullScreen"] = false
+	if c.Query("fullscreen") == "true" {
+		d["FullScreen"] = true
+	}
+	if c.Path() == "/" || strings.Contains("/dashboard/view/", c.Path()) {
+		d["Dashboard"] = true
+	}
 	return d
 }
