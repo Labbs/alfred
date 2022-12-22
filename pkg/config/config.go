@@ -20,5 +20,6 @@ var (
 		Expire    int
 	}
 
+	Debug   bool
 	Version string
 )
