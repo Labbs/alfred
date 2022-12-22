@@ -4,23 +4,22 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/memory"
-	b "github.com/labbs/alfred/pkg/services/bookmark"
+	"github.com/labbs/alfred/pkg/logger"
 )
 
 type bookmarkHandler struct {
 	// user     u.UserRepository
-	bookmark b.BookmarkRepository
-	sessions *session.Store
+	bookmark BookmarkRepository
 }
 
 var (
 	temporaryStore *memory.Storage
 )
 
-func InitRoute(r fiber.Router, sessions *session.Store) {
-	h := bookmarkHandler{bookmark: b.NewBookmarkRepository(), sessions: sessions}
+func InitRoute(r fiber.Router) {
+	logger.Logger.Info().Msg("Initializing bookmark routes")
+	h := bookmarkHandler{bookmark: NewBookmarkRepository()}
 
 	temporaryStore = memory.New(memory.Config{
 		GCInterval: 10 * time.Second,

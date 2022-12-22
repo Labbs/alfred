@@ -23,10 +23,11 @@ var databaseFlags = []cli.Flag{
 		Destination: &config.Database.DSN,
 	},
 	&cli.BoolFlag{
-		Name:    "debug",
-		Aliases: []string{"dg"},
-		EnvVars: []string{"DEBUG"},
-		Value:   false,
-		Usage:   "Debug mode",
+		Name:        "debug",
+		Aliases:     []string{"dg"},
+		EnvVars:     []string{"DEBUG"},
+		Value:       false,
+		Usage:       "Debug mode",
+		Destination: &config.Debug,
 	},
 }

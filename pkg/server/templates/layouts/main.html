@@ -12,12 +12,22 @@
   <body {{ if or (eq .DarkMode "light") (eq .DarkMode "") }}class="theme-light"{{ end }}
         {{ if eq .DarkMode "dark" }}class="theme-dark"{{ end }}>
     <div class="page">
+      {{ if not .FullScreen }}
       <header class="navbar navbar-expand-md {{ if eq .Page "index" }}navbar-transparent{{ else }}navbar-light{{ end }} d-print-none">
         <div class="container-xl">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="navbar-nav flex-row order-md-last">
+            {{ if .Dashboard }}
+            <div class="nav-item">
+              <a href="?fullscreen=true" class="nav-link d-flex lh-1 text-reset p-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-maximize" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="16 4 20 4 20 8"></polyline><line x1="14" y1="10" x2="20" y2="4"></line><polyline points="8 20 4 20 4 16"></polyline><line x1="4" y1="20" x2="10" y2="14"></line><polyline points="16 20 20 20 20 16"></polyline>
+                  <line x1="14" y1="14" x2="20" y2="20"></line><polyline points="8 4 4 4 4 8"></polyline><line x1="4" y1="4" x2="10" y2="10"></line></svg>
+              </a>
+            </div>
+            {{ end }}
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                 <span class="avatar avatar-sm" {{ if ne .Avatar "" }}style="background-image: url({{ .Avatar }})"{{ end }}>
@@ -77,6 +87,7 @@
           </div>
         </div>
       </header>
+      {{ end }}
       <div class="page-wrapper">
         <div class="page-body">
           <div class="container-xl">
