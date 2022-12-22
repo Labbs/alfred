@@ -5,13 +5,13 @@ go 1.19
 require (
 	github.com/go-co-op/gocron v1.18.0
 	github.com/gocolly/colly v1.2.0
-	github.com/gofiber/fiber/v2 v2.39.0
+	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/gofiber/storage/memory v0.0.0-20221027071415-dca8f183e44b
-	github.com/gofiber/template v1.7.2
+	github.com/gofiber/template v1.7.3
 	github.com/gosimple/slug v1.13.1
 	github.com/rs/zerolog v1.28.0
-	golang.org/x/crypto v0.2.0
-	github.com/urfave/cli/v2 v2.23.5
+	github.com/urfave/cli/v2 v2.23.6
+	golang.org/x/crypto v0.3.0
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/driver/postgres v1.4.5
 	gorm.io/driver/sqlite v1.4.3
