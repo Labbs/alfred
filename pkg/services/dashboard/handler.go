@@ -24,7 +24,7 @@ func (h dashboardHandler) index(c *fiber.Ctx) error {
 
 	logger.Logger.Debug().Str("event", "dashboard.get_dashboard").Msg("getting_dashboard")
 	dashboard, err := h.dashboard.GetDefaultDashboard(store.Get("user_id").(string))
-	if err != nil {
+	if err != nil && err.Error.Error() != "record not found" {
 		logger.Logger.Error().Err(err.Error).Str("event", "dashboard.get_dashboard").Msg("could_not_get_dashboard")
 		c.Cookie(&fiber.Cookie{Name: "error-flash", Value: "Could not get default dashboard"})
 		d["Dashboard"] = Dashboard{}
