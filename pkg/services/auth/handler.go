@@ -11,7 +11,6 @@ import (
 )
 
 func (h authHandler) login(c *fiber.Ctx) error {
-	fmt.Println("login")
 	d := make(fiber.Map)
 	d["Error"] = c.Cookies("error-flash")
 	d["Success"] = c.Cookies("success-flash")
