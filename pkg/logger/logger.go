@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/labbs/alfred/pkg/config"
 	"github.com/rs/zerolog"
 )
 
@@ -20,6 +21,11 @@ func InitLogger(version string) {
 		Str("host", host).
 		Str("version", version).
 		Logger()
+
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	if config.Debug {
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	}
 }
 
 func New() fiber.Handler {

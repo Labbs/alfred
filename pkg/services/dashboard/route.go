@@ -1,30 +1,33 @@
-package dasbboard
+package dashboard
 
 import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/memory"
-	d "github.com/labbs/alfred/pkg/services/dashboard"
+	"github.com/labbs/alfred/pkg/logger"
 )
 
 type dashboardHandler struct {
-	dashboard d.DashboardRepository
-	sessions  *session.Store
+	dashboard DashboardRepository
 }
 
 var (
 	temporaryStore *memory.Storage
 )
 
-func InitRoute(r fiber.Router, sessions *session.Store) {
-	h := dashboardHandler{dashboard: d.NewDashboardRepository(), sessions: sessions}
+func InitRoute(r fiber.Router) {
+	logger.Logger.Info().Msg("Initializing dashboard routes")
 
+	// initialize dashboard handler
+	h := dashboardHandler{dashboard: NewDashboardRepository()}
+
+	// initialize temporary storage
 	temporaryStore = memory.New(memory.Config{
 		GCInterval: 10 * time.Second,
 	})
 
+	// initialize dashboard routes
 	r.Get("/", h.index)
 
 	g := r.Group("/dashboard")
@@ -38,4 +41,5 @@ func InitRoute(r fiber.Router, sessions *session.Store) {
 	g.Post("/save/:id", h.saveDashboard)
 	g.Get("/export/:id", h.exportDashboard)
 	g.Post("/import", h.importDashboard)
+	g.Get("/view/:id", h.index)
 }
