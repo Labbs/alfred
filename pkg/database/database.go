@@ -1,6 +1,7 @@
 package database
 
 import (
+	"database/sql"
 	"log"
 	"os"
 	"time"
@@ -16,7 +17,8 @@ import (
 )
 
 type DbConnection struct {
-	DB *gorm.DB
+	DB   *gorm.DB
+	Pool *sql.DB
 }
 
 var (
@@ -38,10 +40,13 @@ func InitDatabase() {
 	switch engine := config.Database.Engine; engine {
 	case "mysql":
 		connection.DB, err = gorm.Open(mysql.Open(config.Database.DSN), &gorm.Config{Logger: newLogger})
+		connection.Pool, err = sql.Open("mysql", config.Database.DSN)
 	case "postgres":
 		connection.DB, err = gorm.Open(postgres.Open(config.Database.DSN), &gorm.Config{Logger: newLogger})
+		connection.Pool, err = sql.Open("postgres", config.Database.DSN)
 	default:
 		connection.DB, err = gorm.Open(sqlite.Open(config.Database.DSN), &gorm.Config{Logger: newLogger})
+		connection.Pool, err = sql.Open("sqlite3", config.Database.DSN)
 	}
 
 	if err != nil {
