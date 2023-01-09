@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-co-op/gocron v1.18.0
 	github.com/gocolly/colly v1.2.0
-	github.com/gofiber/fiber/v2 v2.40.1
+	github.com/gofiber/fiber/v2 v2.41.0
 	github.com/gofiber/storage/memory v0.0.0-20221027071415-dca8f183e44b
 	github.com/gofiber/template v1.7.3
 	github.com/gosimple/slug v1.13.1
@@ -45,7 +45,7 @@ require (
 	github.com/klauspost/compress v1.15.12 // indirect
 	github.com/lib/pq v1.10.6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.16 // indirect
+	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-sqlite3 v1.14.16 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
@@ -55,7 +55,7 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.41.0 // indirect
+	github.com/valyala/fasthttp v1.43.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/net v0.3.0 // indirect
