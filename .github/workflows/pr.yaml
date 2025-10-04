@@ -26,11 +26,11 @@ jobs:
         cache: true
         cache-dependency-path: go.sum
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-        cache-dependency-path: ui/package-lock.json
+    # - uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '22'
+    #     cache: 'npm'
+    #     cache-dependency-path: ui/package-lock.json
 
     - uses: nowsprinting/check-version-format-action@v3
       if: github.event_name != 'pull_request'
@@ -38,11 +38,11 @@ jobs:
       with:
         prefix: 'v'
 
-    - name: Build ui
-      run: |
-        cd ui
-        npm install
-        node_modules/.bin/vite build --outDir ../pkg/app/static/files
+    # - name: Build ui
+    #   run: |
+    #     cd ui
+    #     npm install
+    #     node_modules/.bin/vite build --outDir ../pkg/app/static/files
 
     - name: Build app
       run: CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflags "-static" -X "main.version=${{ steps.version.outputs.full }}"' -o bin/app cmd/cmd.go
