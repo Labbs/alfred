@@ -14,7 +14,7 @@ func setupSystemRoutes(deps infrastructure.Deps) {
 		func(ctx *fiber.Ctx, input struct{}) (*dtos.HealthResponse, *fiberoapi.ErrorResponse) {
 			return &dtos.HealthResponse{
 				Status:  "ok",
-				Service: "stack-deployer",
+				Service: "alfred",
 				Version: deps.Config.Version,
 			}, nil
 		},
